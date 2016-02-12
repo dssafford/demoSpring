@@ -1,0 +1,9 @@
+server.port: 8080
+security.basic.enabled: false
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/eatshit
+      port: 27017
+
