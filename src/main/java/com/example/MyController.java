@@ -8,26 +8,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class AssFaceController {
+public class MyController {
 	@Autowired
 	RecordRepository recordRepository;
 
-	@RequestMapping(value = "/assface",
+	@RequestMapping(value = "/dude",
 			  method = RequestMethod.GET,
 			  produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public String printAssFace(){
+	public String printEntity(){
 
 		RecordEntity entity = new RecordEntity();
-		entity.setFirstName("fuck");
-		entity.setLastName(("you"));
+		entity.setFirstName("hey");
+		entity.setLastName(("dude"));
 		recordRepository.save(entity);
 
-		return new String();
+		//return "{\"hello\": \"world\"}";
+		//return "{\" + getFirstName() + \":\" + getLastName() + \" + \"}";
+		return "{" + entity.getFirstName() + ":" + entity.getLastName()  + "}";
 	}
 
 
-	@RequestMapping(value = "/assface/all",
+	@RequestMapping(value = "/all",
 			  method = RequestMethod.GET,
 			  produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
@@ -49,16 +51,6 @@ public class AssFaceController {
 		return entity;
 	}
 
-//	@RequestMapping("/employee/add")
-//	public ModelAndView add(
-//			  @RequestParam(value = "firstName") String firstName,
-//			  @RequestParam(value = "surName") String surName) {
-//		//....
-//		//....
-//		return null;
-//	}
-
-
 
 	@RequestMapping(value = "/add",
 			  method = RequestMethod.POST,
@@ -67,8 +59,6 @@ public class AssFaceController {
 	public RecordEntity addStuff(
 		@RequestBody RecordEntity entity) {
 
-
-		//RecordEntity entity = new RecordEntity();
 		entity.getFirstName();
 		entity.getLastName();
 		recordRepository.save(entity);
