@@ -1,9 +1,12 @@
 package com.example;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.List;
 
@@ -25,7 +28,7 @@ public class MyController {
 
 		//return "{\"hello\": \"world\"}";
 		//return "{\" + getFirstName() + \":\" + getLastName() + \" + \"}";
-		return "{" + entity.getFirstName() + ":" + entity.getLastName()  + "}";
+		return "{\"FirstName\":\"" + entity.getFirstName() + "\",\"LastName\":\"" + entity.getLastName()  + "\"}";
 	}
 
 
@@ -52,6 +55,24 @@ public class MyController {
 	}
 
 
+	@RequestMapping(value = "/updateOne/{id}",
+			method = RequestMethod.PUT,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	public RecordEntity updateStuff(
+		@PathVariable("id") ObjectId id, @RequestBody RecordEntity updateEntity) {
+
+		RecordEntity newEntity = recordRepository.findOne(id.toString());
+
+		newEntity.setFirstName(updateEntity.getFirstName());
+		newEntity.setLastName(updateEntity.getLastName());
+
+		recordRepository.save(newEntity);
+
+
+		return newEntity;
+	}
+
 	@RequestMapping(value = "/add",
 			  method = RequestMethod.POST,
 			  produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,6 +83,19 @@ public class MyController {
 		entity.getFirstName();
 		entity.getLastName();
 		recordRepository.save(entity);
+		return entity;
+	}
+
+	@RequestMapping(value = "/findOne/{id}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	public RecordEntity findOneRecord(
+			@PathVariable("id") ObjectId id) {
+
+		String newId = id.toString();
+
+		RecordEntity entity = recordRepository.findOne(newId);
 		return entity;
 	}
 
