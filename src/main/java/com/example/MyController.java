@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.List;
 
@@ -99,5 +97,14 @@ public class MyController {
 		return entity;
 	}
 
+//	@RequestMapping(value = "/calc",
+//			  method = RequestMethod.GET,
+//			  produces = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseStatus(HttpStatus.OK)
 
+
+	public int calcResult() {
+		int myval = 6;
+		return myval;
+	}
 }
